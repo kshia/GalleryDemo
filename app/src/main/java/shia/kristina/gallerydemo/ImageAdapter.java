@@ -44,18 +44,19 @@ public class ImageAdapter extends BaseAdapter {
             imageView.setLayoutParams(new GridView.LayoutParams(px, px));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-            // Start new activity with larger view of photo
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, PictureActivity.class);
-                    i.putExtra("url", urls.get(position));
-                    context.startActivity(i);
-                }
-            });
         } else {
             imageView = (ImageView) convertView;
         }
+
+        // Start new activity with larger view of photo
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, PictureActivity.class);
+                i.putExtra("url", urls.get(position));
+                context.startActivity(i);
+            }
+        });
 
         Picasso.with(context).load(this.urls.get(position)).into(imageView);
         return imageView;
