@@ -14,11 +14,10 @@ public class PictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
 
+        // Display larger photo
         Intent i = getIntent();
         String url = i.getStringExtra("url");
-
         ImageView ivFull = (ImageView) findViewById(R.id.ivFull);
-
         Picasso.with(this).load(url).into(ivFull);
     }
 }

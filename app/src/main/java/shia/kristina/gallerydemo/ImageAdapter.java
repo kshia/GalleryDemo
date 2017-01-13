@@ -4,11 +4,8 @@ package shia.kristina.gallerydemo;
  * Created by Kristina on 1/13/17.
  */
 
-import android.app.*;
-import android.os.*;
 import android.widget.*;
 import java.util.*;
-import android.graphics.*;
 import android.view.*;
 import android.content.*;
 
@@ -39,10 +36,15 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(final int position, final View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
+            // Create new ImageView
             imageView = new ImageView(this.context);
+
+            // Calculate size according to dp
             int px =  Math.round(100 * context.getResources().getDisplayMetrics().density);
             imageView.setLayoutParams(new GridView.LayoutParams(px, px));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            // Start new activity with larger view of photo
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

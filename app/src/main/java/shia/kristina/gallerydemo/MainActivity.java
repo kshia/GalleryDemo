@@ -1,25 +1,16 @@
 package shia.kristina.gallerydemo;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.GridView;
-import android.widget.ImageView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,9 +20,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Store URLs and create adapter to display images
         final ArrayList<String> images = new ArrayList<String>();
         final ImageAdapter adapter = new ImageAdapter(this, images);
 
+        // Parameters for Yale's Flickr account
         RequestParams params = new RequestParams();
         params.put("method", "flickr.people.getPublicPhotos");
         params.put("api_key", "3cc1361b2cf4ea990e81990559f46567");
@@ -39,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("format", "json");
         params.put("nojsoncallback", "?");
 
+        // HTTP request for images for account
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "https://api.flickr.com/services/rest/";
         Log.d("API CALL", url + "?" + params);
@@ -54,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONArray list = photos.getJSONArray("photo");
                     Log.d("API CALL", list.toString());
-
 
                     // changes arraylist and notifies adapter
                     images.addAll(Picture.fromJSONArray(list));
@@ -78,9 +71,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Load images into GridView using adapter
         GridView gvAll = (GridView) findViewById(R.id.gvAll);
-
         gvAll.setAdapter(adapter);
     }
-
 }
